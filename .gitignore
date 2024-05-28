@@ -88,14 +88,6 @@ _site/
 # Sass cache
 .sass-cache/
 
-# Compiled CSS
-*.css
-*.css.map
-
-# Compiled JavaScript
-*.js
-*.js.map
-
 # Python cache
 __pycache__/
 
