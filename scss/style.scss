@@ -1,0 +1,457 @@
+// Variables
+$primary-color: #345ff6;
+$secondary-color: #253347;
+$dark: #5e6e85;
+$light: #d8e2e7;
+$white: #fff;
+$shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+$section-padding: 1.5em;
+$section-border-radius: 20px;
+$section-background: #f8faff;
+
+// Fonts
+@font-face {
+  font-family: "Inter Font";
+  src: url("../assets/fonts/Inter-Regular.ttf") format("truetype");
+  src: url("../assets/fonts/Inter-SemiBold.ttf") format("truetype");
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin input-style {
+  width: 95%;
+  box-shadow: $shadow;
+  padding: 15px;
+  &::placeholder {
+    font-size: 13px;
+    color: $dark;
+  }
+}
+
+@mixin radio-style($size, $border-color, $checked-bg-color) {
+  cursor: pointer;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  padding: 5px;
+  background-clip: content-box;
+  border: 2px solid $border-color;
+  border-radius: 50%;
+
+  &:checked {
+    background-color: $checked-bg-color;
+  }
+}
+
+@mixin box-shadow($x, $y, $blur, $spread, $color) {
+  box-shadow: $x $y $blur $spread $color;
+}
+
+// Global Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter Font", sans-serif !important;
+  font-size: 12px;
+  background-color: $white;
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  section {
+    margin-bottom: 50px;
+    margin-left: 10px;
+    height: auto;
+  }
+}
+
+.header {
+  width: 1270px;
+  position: relative;
+  // Medium devices (tablets, less than 992px)
+  @media (max-width: 991.98px) {
+    width: 850px;
+  }
+  &-top {
+    position: relative;
+    @media (max-width: 576px) {
+      width: 550px;
+      height: 650px;
+    }
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+      width: 850px;
+    }
+    width: 978px;
+    height: 650px;
+    background: linear-gradient(to left top, #d6e6fe, #ffffffe0);
+    border-radius: 35px 0;
+    @include box-shadow(0px, 4px, 4px, 0px, rgba(0, 0, 0, 0.25));
+    padding: 30px;
+
+    .header-logo {
+      margin-left: 30px;
+    }
+
+    .header-text {
+      color: $secondary-color;
+      margin-top: 4em;
+      margin-left: 4em;
+      @media (max-width: 576px) {
+        margin-top: 1em;
+        margin-left: 1em;
+      }
+
+      h2 {
+        @media (max-width: 576px) {
+          font-size: 20px;
+          font-weight: bolder;
+          line-height: normal;
+          letter-spacing: 5px;
+          text-align: left;
+        }
+        font-size: 64px;
+        font-weight: bolder;
+        line-height: 110%;
+        letter-spacing: -5px;
+        text-align: left;
+      }
+
+      p {
+        font-size: 12px;
+        line-height: 150%;
+      }
+    }
+  }
+
+  .calculator {
+    // Small devices (landscape phones, less than 768px)
+
+    @media (max-width: 767.98px) {
+      position: relative;
+      width: 628px;
+      height: 520px;
+      left: 16px;
+      top: -137px;
+    }
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+      position: relative;
+      width: 628px;
+      height: 520px;
+      left: 16px;
+      top: -137px;
+    }
+    box-sizing: border-box;
+    width: 470px;
+    height: 360px;
+    background-color: #fffffff6;
+    position: absolute;
+    right: 0;
+    top: 30%;
+    @include box-shadow(0px, 4px, 4px, 0px, rgba(0, 0, 0, 0.25));
+    border-radius: 16px 0;
+    padding: 15px;
+
+    p {
+      font-size: 14px;
+      font-weight: lighter;
+      line-height: 110%;
+    }
+
+    #bmi-form {
+      .radio-inputs {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .radio-input {
+        @include flex-center;
+
+        label {
+          font-size: 16px;
+          line-height: 150%;
+          margin-left: 7px;
+          cursor: pointer;
+        }
+
+        input {
+          @include radio-style(28px, $light, $primary-color);
+        }
+      }
+    }
+
+    .height-input,
+    .weight-input {
+      position: relative;
+      padding: 10px 0;
+
+      label {
+        margin-bottom: 3px;
+        font-size: 13px;
+        color: $dark;
+      }
+
+      input {
+        @include input-style;
+      }
+    }
+
+    .height-input::after {
+      content: "CM";
+      color: $primary-color;
+      position: absolute;
+      top: 54px;
+      right: 20px;
+    }
+
+    .weight-input::after {
+      content: "KG";
+      color: $primary-color;
+      position: absolute;
+      top: 54px;
+      right: 20px;
+    }
+    #Imperial-inputs {
+      padding: 5px 1px;
+
+      input {
+        width: 98%;
+        position: relative;
+        display: inline-block;
+      }
+      .Imperial-height-input {
+        &::after {
+          content: "FT";
+          color: $primary-color;
+          position: absolute;
+          top: 109px;
+          left: 205px;
+        }
+        &::before {
+          content: "IN";
+          color: $primary-color;
+          position: absolute;
+          top: 152px;
+          left: 207px;
+          z-index: 99999;
+        }
+      }
+      .Imperial-Weight-input {
+        &::after {
+          content: "ST";
+          color: $primary-color;
+          position: absolute;
+          top: 109px;
+          right: 28px;
+        }
+        &::before {
+          content: "IBS";
+          color: $primary-color;
+          position: absolute;
+          top: 152px;
+          right: 24px;
+          z-index: 99999;
+        }
+      }
+    }
+
+    #result {
+      @media (max-width: 576px) {
+        width: 270px;
+        height: 250px;
+        background: #587dff;
+        border-radius: 0 2px 2px 0;
+      }
+      width: 450px;
+      height: 120px;
+      background: linear-gradient(to bottom right, #345ef6c0, #587dff);
+      border-radius: 0 90px 90px 0;
+      @include box-shadow(2px, 2px, 4px, 0px, #000);
+      color: $white;
+    }
+  }
+}
+
+.tips {
+  h5 {
+    color: $secondary-color;
+  }
+  span {
+    color: $dark;
+  }
+}
+
+.bmi-limitations {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  padding: 2em;
+
+  p {
+    font-size: 1em;
+    color: $dark;
+    margin-bottom: 2em;
+  }
+
+  position: relative;
+
+  .limitations-text {
+    position: absolute;
+    left: 31px;
+    top: 63px;
+    width: 469px;
+    @media (max-width: 575.98px) {
+      margin-top: 20px;
+      position: relative;
+      width: 239px;
+      height: 220px;
+      margin-bottom: 10px;
+    }
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+      font-size: 12px;
+      width: 239px;
+      height: 320px;
+      margin-bottom: -6px;
+      position: absolute;
+      top: 5px;
+    }
+  }
+
+  .limitations-grid {
+    @media (max-width: 575.98px) {
+      grid-template-columns: repeat(1, 1fr);
+      margin: 0 auto;
+    }
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    .limitation-card {
+      &-text {
+        @include flex-center;
+      }
+
+      h3 {
+        font-size: 1.2em;
+        color: $secondary-color;
+        margin-bottom: 0.5em;
+      }
+
+      p {
+        font-size: 0.9em;
+        color: $dark;
+      }
+
+      background: $section-background;
+      border-radius: $section-border-radius;
+      @include box-shadow(-2px, 2px, 4px, 0px, rgba(143, 174, 207, 0.856));
+      padding: $section-padding;
+      max-width: 300px;
+
+      &:nth-child(1) {
+        grid-column: 3 / span 1;
+        width: 250px;
+        grid-row: 1;
+        margin-right: 20px;
+        @media (max-width: 575.98px) {
+          grid-column: 1 / span 1;
+          margin-right: 0;
+        }
+        // Medium devices (tablets, less than 992px)
+        @media (max-width: 991.98px) {
+          grid-column: 2 / span 1;
+          grid-row: 1;
+        }
+      }
+
+      &:nth-child(2) {
+        grid-column: 2 / span 1;
+        height: 140px;
+        width: 280px;
+        grid-row: 2;
+        @media (max-width: 575.98px) {
+          grid-column: 1 / span 1;
+          grid-row: 2;
+        }
+
+        // Medium devices (tablets, less than 992px)
+        @media (max-width: 991.98px) {
+          grid-column: 2 / span 1;
+          grid-row: 2;
+        }
+      }
+
+      &:nth-child(3) {
+        width: 280px;
+        height: 140px;
+        grid-column: 3 / span 1;
+        grid-row: 2;
+        @media (max-width: 575.98px) {
+          grid-column: 1 / span 1;
+          margin-right: 0;
+          grid-row: 3;
+        }
+        // Medium devices (tablets, less than 992px)
+        @media (max-width: 991.98px) {
+          grid-column: 1 / span 1;
+          grid-row: 3;
+        }
+
+        // Medium devices (tablets, less than 992px)
+        @media (max-width: 991.98px) {
+          grid-template-columns: repeat(2, 1fr);
+          grid-column: 1 / span 1;
+          grid-row: 2;
+        }
+      }
+
+      &:nth-child(4) {
+        grid-column: 1 / span 1;
+        grid-row: 3;
+        width: 280px;
+        @media (max-width: 575.98px) {
+          grid-column: 1 / span 1;
+          margin-right: 0;
+          grid-row: 4;
+        }
+      }
+
+      &:nth-child(5) {
+        width: 300px;
+        grid-column: 2 / span 2;
+        grid-row: 3;
+        @media (max-width: 575.98px) {
+          grid-column: 1 / span 1;
+          margin-right: 0;
+          grid-row: 5;
+        }
+      }
+    }
+  }
+}
