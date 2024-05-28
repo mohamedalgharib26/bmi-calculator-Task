@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log(5);
   const heightInput = document.getElementById("height");
   const weightInput = document.getElementById("weight");
 
@@ -16,6 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function calculateBMI() {
     let height = parseFloat(heightInput.value);
     let weight = parseFloat(weightInput.value);
+    let feet = parseFloat(heightInput1.value);
+    let inches = parseFloat(heightInput2.value);
+    let stones = parseFloat(weightInput1.value);
+    let pounds = parseFloat(weightInput2.value);
 
     // استدعاء الدالة عند تغيير أي من المدخلات
 
@@ -32,11 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
       height = height / 100; // Convert height from cm to meters
       bmi = weight / (height * height);
     } else if (imperialRadio.checked) {
-      const feet = parseFloat(heightInput1.value);
-      const inches = parseFloat(heightInput2.value);
-      const stones = parseFloat(weightInput1.value);
-      const pounds = parseFloat(weightInput2.value);
-
       if (
         isNaN(feet) ||
         isNaN(inches) ||
