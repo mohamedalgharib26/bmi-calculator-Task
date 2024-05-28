@@ -103,5 +103,10 @@ document.addEventListener("DOMContentLoaded", function () {
   heightInput2.addEventListener("change", calculateBMI);
   weight1.addEventListener("change", calculateBMI);
   weight2.addEventListener("change", calculateBMI);
+
+  heightInput1.addEventListener("input", calculateBMI);
+  heightInput2.addEventListener("input", calculateBMI);
+  weight1.addEventListener("input", calculateBMI);
+  weight2.addEventListener("input", calculateBMI);
   metricRadio.addEventListener("change", calculateBMI);
 });
