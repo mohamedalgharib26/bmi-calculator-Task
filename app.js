@@ -20,8 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let stones = parseFloat(weightInput1.value);
     let pounds = parseFloat(weightInput2.value);
 
-    // استدعاء الدالة عند تغيير أي من المدخلات
-
     let bmi;
     if (metricRadio.checked) {
       if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
