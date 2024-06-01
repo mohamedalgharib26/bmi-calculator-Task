@@ -6,12 +6,31 @@ document.addEventListener("DOMContentLoaded", function () {
   const heightInput2 = document.getElementById("ImperialHeightInput2");
   const weightInput1 = document.getElementById("ImperialWeightInput1");
   const weightInput2 = document.getElementById("ImperialWeightInput2");
+
   const resultDiv = document.getElementById("result");
   const metricRadio = document.getElementById("metric");
-  const metricInputs = document.getElementById("metric-inputs");
-  const ImperialInputs = document.getElementById("Imperial-inputs");
   const imperialRadio = document.getElementById("Imperial");
 
+  const metricInputs = document.getElementById("metric-inputs");
+  const imperialInputs = document.getElementById("Imperial-inputs");
+
+  // Function to display BMI result
+  function displayResult(bmi, bmiCategory) {
+    resultDiv.innerHTML = `
+      <p>Your BMI is ${bmi.toFixed(2)}</p>
+      <span>Your BMI suggests you're ${bmiCategory}</span>
+    `;
+  }
+
+  // Function to display invalid input message
+  function displayInvalidInput() {
+    resultDiv.innerHTML = `
+      <p>Invalid input</p>
+      <span>Enter your height and weight to see your BMI result</span>
+    `;
+  }
+
+  // Function to calculate BMI
   function calculateBMI() {
     let height = parseFloat(heightInput.value);
     let weight = parseFloat(weightInput.value);
@@ -21,18 +40,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let pounds = parseFloat(weightInput2.value);
 
     let bmi;
+
+    // Calculate BMI for metric system
     if (metricRadio.checked) {
       if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
-        resultDiv.innerHTML = `
-        <p>Invalid input</p>
-        <span>Enter your height and weight to see your BMI result</span>
-      `;
+        displayInvalidInput();
         return;
       }
-      // Metric system (height in cm, weight in kg)
       height = height / 100; // Convert height from cm to meters
       bmi = weight / (height * height);
-    } else if (imperialRadio.checked) {
+    }
+    // Calculate BMI for imperial system
+    else if (imperialRadio.checked) {
       if (
         isNaN(feet) ||
         isNaN(inches) ||
@@ -43,10 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         stones < 0 ||
         pounds < 0
       ) {
-        resultDiv.innerHTML = `
-          <p>Invalid input</p>
-          <span>Enter your height and weight to see your BMI result</span>
-        `;
+        displayInvalidInput();
         return;
       }
 
@@ -66,43 +82,52 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       bmiCategory = "Obese";
     }
+
     if (bmi) {
-      resultDiv.innerHTML = `
-      <p>Your BMI is ${bmi.toFixed(2)}</p>
-      <span>Your BMI suggests you're ${bmiCategory}</span>
-    `;
+      displayResult(bmi, bmiCategory);
     }
   }
+
+  // Function to toggle between metric and imperial input fields
   function toggleRadio() {
     if (this === metricRadio && metricRadio.checked) {
       imperialRadio.checked = false;
-      ImperialInputs.classList.remove("d-flex");
-      ImperialInputs.classList.add("d-none");
+      imperialInputs.classList.remove("d-flex");
+      imperialInputs.classList.add("d-none");
       metricInputs.classList.remove("d-none");
       metricInputs.classList.add("d-flex");
     } else if (this === imperialRadio && imperialRadio.checked) {
       metricRadio.checked = false;
       metricInputs.classList.remove("d-flex");
       metricInputs.classList.add("d-none");
-      ImperialInputs.classList.add("d-flex");
-      ImperialInputs.classList.remove("d-none");
+      imperialInputs.classList.add("d-flex");
+      imperialInputs.classList.remove("d-none");
     }
     calculateBMI();
   }
-  heightInput.addEventListener("input", calculateBMI);
-  weightInput.addEventListener("input", calculateBMI);
-  imperialRadio.addEventListener("change", calculateBMI);
-  metricRadio.addEventListener("change", toggleRadio);
-  imperialRadio.addEventListener("change", toggleRadio);
 
-  heightInput1.addEventListener("change", calculateBMI);
-  heightInput2.addEventListener("change", calculateBMI);
-  weight1.addEventListener("change", calculateBMI);
-  weight2.addEventListener("change", calculateBMI);
+  // Function to add event listeners for BMI calculation
+  function addEventListeners() {
+    const elements = [
+      heightInput,
+      weightInput,
+      heightInput1,
+      heightInput2,
+      weightInput1,
+      weightInput2,
+      metricRadio,
+      imperialRadio,
+    ];
 
-  heightInput1.addEventListener("input", calculateBMI);
-  heightInput2.addEventListener("input", calculateBMI);
-  weight1.addEventListener("input", calculateBMI);
-  weight2.addEventListener("input", calculateBMI);
-  metricRadio.addEventListener("change", calculateBMI);
+    elements.forEach((element) => {
+      element.addEventListener("input", calculateBMI);
+      element.addEventListener("change", calculateBMI);
+    });
+
+    metricRadio.addEventListener("change", toggleRadio);
+    imperialRadio.addEventListener("change", toggleRadio);
+  }
+
+  // Initialize event listeners
+  addEventListeners();
 });
